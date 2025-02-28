@@ -1,5 +1,5 @@
 import React from "react";
-import AddToCart from "./AddToCart";
+import AddToCart from "./AddtoCart"
 
 const Item = ({ name, image, description, price }) => {
   const item = { name, image, description, price };
