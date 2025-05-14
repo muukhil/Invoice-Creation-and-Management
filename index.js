@@ -34,7 +34,7 @@ app.post("/signup", async (req, res)=>{
             password:hashedPassword,
             phoneNumber:phoneNumber
         });
-        await newSignup.save();
+        newSignup.save();
         console.log("Signup Successful!");
         res.status(201).json({message: "Signup Successful", isSignup:true})
     }catch{
@@ -81,33 +81,6 @@ app.get('/getinventorydet', async (req,res)=>{ //get inventory details from data
     console.log(inventory)
     res.send("Inventory details Fetched")
 })
-
-app.post("/invoice", async (req, res)=>{
-    const {prod_id} = req.body;
-    const product = await Inventory.findOne({id:prod_id});
-    console.log(product);
-})
-
-app.post("/invoice", async (req, res) => {
-    try {
-        const { id } = req.body; // Destructure to get the product ID from the body
-        if (!id) {
-            return res.status(400).json({ message: "Product ID is required" });
-        }
-
-        const product = await Inventory.findOne({ id }); // Query the Inventory with the provided id
-
-        if (!product) {
-            return res.status(404).json({ message: "Product not found" });
-        }
-
-        console.log(product);
-        res.status(200).json({ product });
-    } catch (error) {
-        console.error("Error fetching product:", error);
-        res.status(500).json({ message: "Server Error" });
-    }
-});
 
 app.listen(PORT, ()=>{
     console.log('the server is running on the: ',`${PORT}`)

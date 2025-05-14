@@ -1,5 +1,4 @@
 import React from "react";
-import AddToCart from "./AddtoCart"
 
 const Item = ({ name, image, description, price }) => {
   const item = { name, image, description, price };
@@ -10,7 +9,6 @@ const Item = ({ name, image, description, price }) => {
       <h3>{name}</h3>
       <p className="description">{description}</p>
       <p><strong>Price: </strong>Rs.{price}</p>
-      <AddToCart item={item} />
     </div>
   );
 };

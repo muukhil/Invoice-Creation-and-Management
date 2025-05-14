@@ -1,17 +1,43 @@
 import React, {useState} from 'react'
-import { Link } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
+import axios from "axios";
 
 const Signup = () => {
+    const navigate = useNavigate();
     const [firstName, setfirstName] = useState("")
     const [lastName, setlastName] = useState("")
     const [password, setpassword] = useState("")
     const [confirmPassword, setconfirmPassword] = useState("")
     const [phonenumber, setphonenumber] = useState(0)
     const [email, setemail] = useState("")
+
+    const handleSignup = async (event)=>{
+      event.preventDefault();
+
+      const req = await axios.post("http://localhost:5000/signup", {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: password,
+        phoneNumber: phonenumber,
+      })
+
+      const message = req.data.message;
+      const isSignup = req.data.isSignup;
+
+      if(isSignup){
+        alert(message);
+        navigate("/login");
+      }
+      else{
+        alert(message);
+      }
+    }
+
   return (
     <div>
       <h1>Signup Page</h1>
-      <form>
+      <form onSubmit={handleSignup}>
         First Name:
         <input 
             type="text" 
